@@ -5,7 +5,7 @@ export const useNotes = () => {
 
   const notes = useState<Note[]>('notes', () => [
     createNote('My first note', 'No text'),
-    createNote('My second note', 'Some text...')
+    createNote('My second note', '### Some text...')
   ])
 
   const filteredNotes = computed(() => {

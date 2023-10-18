@@ -10,18 +10,18 @@ const note = computed(() => getNote(activeRouteId.value!))
 
 const { editMode, disableEditMode } = useEditMode()
 
-const readonly = computed(() => editMode.value === false)
-
 watch(activeRouteId, disableEditMode, { immediate: true })
 </script>
 
 <template>
   <div class="note-page">
     <template v-if="note">
-      <NoteForm
-        :note="note"
-        :readonly="readonly"
-      />
+      <template v-if="editMode">
+        <NoteForm :note="note" />
+      </template>
+      <template v-else>
+        <NotePreview :note="note" />
+      </template>
     </template>
     <div v-else>
       Note not found
