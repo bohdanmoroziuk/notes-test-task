@@ -21,6 +21,10 @@ export const useNotes = () => {
 
   const hasNotes = computed(() => notes.value.length > 0)
 
+  const getNote = (noteId: NoteId) => {
+    return notes.value.find(note => note.id === noteId)
+  }
+
   const addNote = (title: string, text: string) => {
     const note = createNote(title, text)
 
@@ -38,6 +42,7 @@ export const useNotes = () => {
     notes,
     filteredNotes,
     hasNotes,
+    getNote,
     addNote,
     removeNote
   }
