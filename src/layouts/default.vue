@@ -1,7 +1,13 @@
+<script setup lang="ts">
+import { useNotes } from '~/stores/useNotes'
+
+const { notes } = useNotes()
+</script>
+
 <template>
   <div class="default-layout">
     <aside class="left-drawer">
-      Left Drawer
+      <NoteList :notes="notes" />
     </aside>
     <header class="header">
       Header
