@@ -8,11 +8,18 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "typecheck": "npx nuxi typecheck"
+    "typecheck": "npx nuxi typecheck",
+    "lint": "eslint --ext .ts,.js,.vue .",
+    "lint:fix": "eslint --fix --ext .ts,.js,.vue ."
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@types/node": "^20.8.6",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "eslint": "^8.51.0",
+    "eslint-plugin-vue": "^9.17.0",
     "nuxt": "^3.7.4",
     "typescript": "^5.2.2",
     "vue": "^3.3.4",
