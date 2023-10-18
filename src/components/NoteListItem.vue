@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toTime } from '~/utils'
 import { Note } from '~/entities/Note'
 
 interface Props {
@@ -19,7 +20,7 @@ const text = computed(() => {
 })
 
 const time = computed(() => {
-  return new Date(props.note.createdAt).toLocaleTimeString()
+  return toTime(props.note.createdAt)
 })
 </script>
 
