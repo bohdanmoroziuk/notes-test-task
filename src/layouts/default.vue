@@ -3,7 +3,7 @@ import { useNotes } from '~/stores/useNotes'
 
 const activeNoteId = useActiveNoteId()
 
-const { notes, addNote, removeNote } = useNotes()
+const { searchTerm, filteredNotes, addNote, removeNote } = useNotes()
 
 const goHome = () => {
   navigateTo({ name: 'index' })
@@ -44,10 +44,17 @@ const handleNoteDelete = () => {
           Delete
         </AppButton>
       </div>
-      <NoteList :notes="notes" />
+      <NoteList :notes="filteredNotes" />
     </aside>
     <header class="header">
-      Header
+      <div>
+        Icon
+      </div>
+      <AppInput
+        v-model="searchTerm"
+        type="search"
+        placeholder="search"
+      />
     </header>
     <main class="main">
       <slot />
@@ -75,6 +82,12 @@ const handleNoteDelete = () => {
 
 .main {
   grid-column: 2 / 3;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .toolbar {
