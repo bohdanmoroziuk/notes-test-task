@@ -2,4 +2,8 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   srcDir: 'src/',
+  typescript: {
+    strict: true,
+    typeCheck: true,
+  },
 })
