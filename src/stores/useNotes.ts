@@ -9,7 +9,11 @@ export const useNotes = () => {
   const hasNotes = computed(() => notes.value.length > 0)
 
   const addNote = (title: string, text: string) => {
-    notes.value = [createNote(title, text), ...notes.value]
+    const note = createNote(title, text)
+
+    notes.value = [note, ...notes.value]
+
+    return note
   }
 
   const removeNote = (noteId: NoteId) => {
