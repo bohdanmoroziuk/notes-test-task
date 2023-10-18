@@ -14,6 +14,7 @@ export default defineNuxtConfig({
       families: {
         Roboto: true
       }
-    }]
+    }],
+    ['nuxt-icon', {}]
   ]
 })

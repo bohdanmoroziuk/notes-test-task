@@ -8,10 +8,10 @@ const { searchTerm, filteredNotes, addNote, removeNote } = useNotes()
 
 const { editMode, toggleEditMode } = useEditMode()
 
-const editModeText = computed(() => (
+const editModeIcon = computed(() => (
   editMode.value
-    ? 'View'
-    : 'Edit'
+    ? 'material-symbols:markdown'
+    : 'material-symbols:edit-square'
 ))
 
 const goHome = () => {
@@ -44,21 +44,21 @@ const handleNoteDelete = () => {
     <aside class="left-drawer">
       <div class="toolbar">
         <AppButton @click="goHome">
-          Home
+          <AppIcon name="ic:sharp-home" />
         </AppButton>
         <AppButton @click="handleNoteAdd">
-          New
+          <AppIcon name="material-symbols:add-box-sharp" />
         </AppButton>
         <AppButton @click="handleNoteDelete">
-          Delete
+          <AppIcon name="ic:baseline-delete" />
         </AppButton>
       </div>
       <NoteList :notes="filteredNotes" />
     </aside>
     <header class="header">
-      <div @click="toggleEditMode">
-        {{ editModeText }}
-      </div>
+      <AppButton @click="toggleEditMode">
+        <AppIcon :name="editModeIcon" />
+      </AppButton>
       <AppInput
         v-model="searchTerm"
         type="search"
