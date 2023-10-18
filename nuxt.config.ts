@@ -8,5 +8,12 @@ export default defineNuxtConfig({
   },
   css: [
     '~/assets/styles/main.css'
+  ],
+  modules: [
+    ['@nuxtjs/google-fonts', {
+      families: {
+        Roboto: true
+      }
+    }]
   ]
 })
