@@ -2,6 +2,8 @@
 import { useNotes } from '~/stores/useNotes'
 import { useEditMode } from '~/stores/useEditMode'
 
+const [leftDrawer, toggleLeftDrawer] = useToggle('leftDrawer')
+
 const activeNoteId = useActiveNoteId()
 
 const { searchTerm, filteredNotes, addNote, removeNote } = useNotes()
@@ -41,24 +43,40 @@ const handleNoteDelete = () => {
 
 <template>
   <div class="default-layout">
-    <aside class="left-drawer">
+    <aside class="left-drawer" :class="{ 'left-drawer--shown': leftDrawer }">
       <div class="toolbar">
-        <AppButton @click="goHome">
-          <AppIcon name="ic:sharp-home" />
-        </AppButton>
-        <AppButton @click="handleNoteAdd">
-          <AppIcon name="material-symbols:add-box-sharp" />
-        </AppButton>
-        <AppButton @click="handleNoteDelete">
-          <AppIcon name="ic:baseline-delete" />
+        <AppButtonGroup>
+          <AppButton @click="goHome">
+            <AppIcon name="ic:sharp-home" />
+          </AppButton>
+          <AppButton @click="handleNoteAdd">
+            <AppIcon name="material-symbols:add-box-sharp" />
+          </AppButton>
+          <AppButton @click="handleNoteDelete">
+            <AppIcon name="ic:baseline-delete" />
+          </AppButton>
+        </AppButtonGroup>
+        <AppButton
+          class="d-sm-none"
+          @click="toggleLeftDrawer"
+        >
+          <AppIcon name="material-symbols:cancel" />
         </AppButton>
       </div>
       <NoteList :notes="filteredNotes" />
     </aside>
     <header class="header">
-      <AppButton @click="toggleEditMode">
-        <AppIcon :name="editModeIcon" />
-      </AppButton>
+      <AppButtonGroup>
+        <AppButton
+          class="d-sm-none"
+          @click="toggleLeftDrawer"
+        >
+          <AppIcon name="ic:baseline-menu" />
+        </AppButton>
+        <AppButton @click="toggleEditMode">
+          <AppIcon :name="editModeIcon" />
+        </AppButton>
+      </AppButtonGroup>
       <AppInput
         v-model="searchTerm"
         type="search"
@@ -74,23 +92,24 @@ const handleNoteDelete = () => {
 <style scoped>
 .default-layout {
   height: 100vh;
-  display: grid;
-  grid-template: auto 1fr / 20vw 1fr;
-  /* grid-gap: 1rem; */
 }
 
 .default-layout > * {
   padding: 1rem;
-  /* border: 1px solid red; */
 }
 
 .left-drawer {
-  grid-row: 1 / 3;
+  height: 100vh;
   border-right: 1px solid lightgrey;
+  background-color: white;
 }
 
-.main {
-  grid-column: 2 / 3;
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  grid-gap: 1rem;
+  padding: 0 1rem 1rem 1rem;
 }
 
 .header {
@@ -99,10 +118,47 @@ const handleNoteDelete = () => {
   justify-content: space-between;
 }
 
-.toolbar {
-  display: flex;
-  align-items: center;
-  grid-gap: 1rem;
-  padding: 0 1rem 1rem 1rem;
+.main {
+  height: 100%;
+}
+
+@media screen and (max-width: 871px) {
+  .default-layout {
+    position: relative;
+  }
+
+  .left-drawer {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    z-index: 1024;
+    width: 100vw;
+    transition: all 0.25s linear;
+  }
+
+  .left-drawer--shown {
+    left: 0;
+  }
+}
+
+@media screen and (min-width: 872px) {
+  .default-layout {
+    display: grid;
+    grid-template: auto 1fr / 40vw 1fr;
+  }
+
+  .left-drawer {
+    grid-row: 1 / 3;
+  }
+
+  .main {
+    grid-column: 2 / 3;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .default-layout {
+    grid-template: auto 1fr / 25vw 1fr;
+  }
 }
 </style>

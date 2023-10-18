@@ -5,7 +5,7 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  size: '1.5rem'
+  size: '1.75em'
 })
 </script>
 

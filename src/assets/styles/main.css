@@ -13,3 +13,13 @@ body,
 .app {
   min-height: 100vh;
 }
+
+.d-none {
+  display: none !important;
+}
+
+@media screen and (min-width: 872px) {
+  .d-sm-none {
+    display: none !important;
+  }
+}
