@@ -3,6 +3,7 @@ import { Note } from '~/entities/Note'
 
 interface Props {
   note: Note
+  readonly: boolean
 }
 
 defineProps<Props>()
@@ -12,11 +13,13 @@ defineProps<Props>()
   <form class="note-form">
     <input
       :value="note.title"
+      :readonly="readonly"
       class="note-form__input"
       type="text"
     >
     <textarea
       :value="note.text"
+      :readonly="readonly"
       class="note-form__textarea"
     />
   </form>

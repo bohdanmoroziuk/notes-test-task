@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import { useNotes } from '~/stores/useNotes'
+import { useEditMode } from '~/stores/useEditMode'
 
 const activeNoteId = useActiveNoteId()
 
 const { searchTerm, filteredNotes, addNote, removeNote } = useNotes()
+
+const { editMode, toggleEditMode } = useEditMode()
+
+const editModeText = computed(() => (
+  editMode.value
+    ? 'View'
+    : 'Edit'
+))
 
 const goHome = () => {
   navigateTo({ name: 'index' })
@@ -47,8 +56,8 @@ const handleNoteDelete = () => {
       <NoteList :notes="filteredNotes" />
     </aside>
     <header class="header">
-      <div>
-        Icon
+      <div @click="toggleEditMode">
+        {{ editModeText }}
       </div>
       <AppInput
         v-model="searchTerm"
