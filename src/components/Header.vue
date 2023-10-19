@@ -7,11 +7,7 @@ const [, toggleLeftDrawer] = useToggle('leftDrawer')
 
 const [editMode, toggleEditMode] = useToggle('editMode')
 
-const editModeIcon = computed(() => (
-  editMode.value
-    ? 'material-symbols:markdown'
-    : 'material-symbols:edit-square'
-))
+const editModeIcon = computed(() => editMode.value ? 'fa-brands fa-markdown' : 'fa-solid fa-pen-to-square')
 </script>
 
 <template>
@@ -21,7 +17,7 @@ const editModeIcon = computed(() => (
         class="d-md-none"
         @click="toggleLeftDrawer"
       >
-        <AppIcon name="ic:baseline-menu" />
+        <AppIcon name="fa-solid fa-bars" />
       </AppButton>
       <AppButton @click="toggleEditMode">
         <AppIcon :name="editModeIcon" />

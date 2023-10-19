@@ -42,20 +42,20 @@ const handleNoteDelete = async () => {
   <div class="toolbar">
     <AppButtonGroup>
       <AppButton @click="goToHomePage">
-        <AppIcon name="ic:sharp-home" />
+        <AppIcon name="fa-solid fa-house" />
       </AppButton>
       <AppButton @click="handleNoteAdd">
-        <AppIcon name="material-symbols:add-box-sharp" />
+        <AppIcon name="fa-solid fa-plus" />
       </AppButton>
       <AppButton @click="handleNoteDelete">
-        <AppIcon name="ic:baseline-delete" />
+        <AppIcon name="fa-solid fa-trash" />
       </AppButton>
     </AppButtonGroup>
     <AppButton
       class="d-md-none"
       @click="toggleLeftDrawer"
     >
-      <AppIcon name="material-symbols:cancel" />
+      <AppIcon name="fa-solid fa-xmark" />
     </AppButton>
   </div>
 </template>

@@ -7,14 +7,14 @@ export default defineNuxtConfig({
     typeCheck: true
   },
   css: [
-    '~/assets/styles/main.css'
+    '~/assets/styles/main.css',
+    '@fortawesome/fontawesome-svg-core/styles.css'
   ],
   modules: [
     ['@nuxtjs/google-fonts', {
       families: {
         Roboto: true
       }
-    }],
-    ['nuxt-icon', {}]
+    }]
   ]
 })
