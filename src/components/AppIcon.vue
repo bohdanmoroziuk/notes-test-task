@@ -1,18 +1,14 @@
 <script setup lang="ts">
 interface Props {
   name: string
-  size?: string
 }
 
-withDefaults(defineProps<Props>(), {
-  size: '1.75em'
-})
+defineProps<Props>()
 </script>
 
 <template>
-  <Icon
+  <FontAwesomeIcon
     class="app-icon"
-    :name="name"
-    :size="size"
+    :icon="name"
   />
 </template>
