@@ -46,7 +46,7 @@ export const useNotes = async () => {
   }
 
   const updateNote = async (note: Note) => {
-    await idb.updateItem(note)
+    await idb.updateItem({ ...note })
 
     notes.value = notes.value.map(oldNote => (
       oldNote.id === note.id
