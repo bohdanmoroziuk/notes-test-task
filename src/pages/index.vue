@@ -12,9 +12,9 @@ const message = computed(() => (
 
 <template>
   <div class="index-page">
-    <p class="message">
+    <AppAlert>
       {{ message }}
-    </p>
+    </AppAlert>
   </div>
 </template>
 
@@ -24,10 +24,5 @@ const message = computed(() => (
   align-items: center;
   justify-content: center;
   min-height: 100%;
-}
-
-.message {
-  font-size: 1.5rem;
-  color: lightgrey;
 }
 </style>

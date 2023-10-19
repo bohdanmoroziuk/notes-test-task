@@ -31,19 +31,22 @@ const handleNoteUpdate = async (note: Note) => {
       <div class="timestamp">
         {{ timestamp }}
       </div>
-      <template v-if="editMode">
-        <NoteForm
-          :note="note"
-          @submit="handleNoteUpdate"
-        />
-      </template>
-      <template v-else>
-        <NotePreview :note="note" />
-      </template>
+      <NoteForm
+        v-if="editMode"
+        :note="note"
+        @submit="handleNoteUpdate"
+      />
+      <NotePreview
+        v-else
+        :note="note"
+      />
     </template>
-    <div v-else>
+    <AppAlert
+      v-else
+      variant="error"
+    >
       Note not found
-    </div>
+    </AppAlert>
   </div>
 </template>
 
