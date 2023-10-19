@@ -1,5 +1,24 @@
 <script setup lang="ts">
-const modelValue = defineModel<string>('modelValue', { required: true })
+interface Props {
+  modelValue: string
+}
+
+interface Emits {
+  (event: 'update:modelValue', modelValue: string): void
+}
+
+const props = defineProps<Props>()
+
+const emit = defineEmits<Emits>()
+
+const modelValue = computed({
+  get () {
+    return props.modelValue
+  },
+  set (value: string) {
+    emit('update:modelValue', value)
+  }
+})
 </script>
 
 <template>
