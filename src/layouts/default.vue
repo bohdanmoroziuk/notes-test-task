@@ -57,7 +57,7 @@ const handleNoteDelete = () => {
           </AppButton>
         </AppButtonGroup>
         <AppButton
-          class="d-sm-none"
+          class="d-md-none"
           @click="toggleLeftDrawer"
         >
           <AppIcon name="material-symbols:cancel" />
@@ -68,7 +68,7 @@ const handleNoteDelete = () => {
     <header class="header">
       <AppButtonGroup>
         <AppButton
-          class="d-sm-none"
+          class="d-md-none"
           @click="toggleLeftDrawer"
         >
           <AppIcon name="ic:baseline-menu" />
@@ -122,7 +122,7 @@ const handleNoteDelete = () => {
   height: 100%;
 }
 
-@media screen and (max-width: 871px) {
+@media screen and (max-width: 767px) {
   .default-layout {
     position: relative;
   }
@@ -141,7 +141,7 @@ const handleNoteDelete = () => {
   }
 }
 
-@media screen and (min-width: 872px) {
+@media screen and (min-width: 768px) {
   .default-layout {
     display: grid;
     grid-template: auto 1fr / 40vw 1fr;
@@ -156,7 +156,7 @@ const handleNoteDelete = () => {
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 992px) {
   .default-layout {
     grid-template: auto 1fr / 25vw 1fr;
   }
