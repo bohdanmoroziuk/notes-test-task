@@ -5,5 +5,13 @@ export const useToggle = (key: string, initialState = false) => {
     state.value = !state.value
   }
 
-  return [readonly(state), toggle] as const
+  const setOn = () => {
+    state.value = true
+  }
+
+  const setOff = () => {
+    state.value = false
+  }
+
+  return [readonly(state), toggle, setOn, setOff] as const
 }

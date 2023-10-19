@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { useNotes } from '~/stores/useNotes'
-import { useEditMode } from '~/stores/useEditMode'
 
 const { searchTerm } = await useNotes()
 
 const [, toggleLeftDrawer] = useToggle('leftDrawer')
 
-const { editMode, toggleEditMode } = useEditMode()
+const [editMode, toggleEditMode] = useToggle('editMode')
 
 const editModeIcon = computed(() => (
   editMode.value

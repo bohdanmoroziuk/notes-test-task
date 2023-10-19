@@ -2,7 +2,6 @@
 import { toDateTime, notifyError } from '~/utils'
 import { Note } from '~/entities/Note'
 import { useNotes } from '~/stores/useNotes'
-import { useEditMode } from '~/stores/useEditMode'
 
 const { getNote, updateNote } = await useNotes()
 
@@ -12,7 +11,7 @@ const note = computed(() => getNote(activeRouteId.value!))
 
 const timestamp = computed(() => note.value ? toDateTime(note.value.createdAt) : '')
 
-const { editMode, disableEditMode } = useEditMode()
+const [editMode,,, disableEditMode] = useToggle('editMode')
 
 watch(activeRouteId, disableEditMode, { immediate: true })
 
