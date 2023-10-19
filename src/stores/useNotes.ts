@@ -33,6 +33,14 @@ export const useNotes = () => {
     return note
   }
 
+  const updateNote = (note: Note) => {
+    notes.value = notes.value.map(oldNote => (
+      oldNote.id === note.id
+        ? note
+        : oldNote
+    ))
+  }
+
   const removeNote = (noteId: NoteId) => {
     notes.value = notes.value.filter(note => note.id !== noteId)
   }
@@ -44,6 +52,7 @@ export const useNotes = () => {
     hasNotes,
     getNote,
     addNote,
+    updateNote,
     removeNote
   }
 }

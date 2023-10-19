@@ -3,7 +3,7 @@ import { toDateTime } from '~/utils'
 import { useNotes } from '~/stores/useNotes'
 import { useEditMode } from '~/stores/useEditMode'
 
-const { getNote } = useNotes()
+const { getNote, updateNote } = useNotes()
 
 const activeRouteId = useActiveNoteId()
 
@@ -27,7 +27,10 @@ watch(activeRouteId, disableEditMode, { immediate: true })
         {{ timestamp }}
       </div>
       <template v-if="editMode">
-        <NoteForm :note="note" />
+        <NoteForm
+          :note="note"
+          @submit="updateNote"
+        />
       </template>
       <template v-else>
         <NotePreview :note="note" />

@@ -14,6 +14,7 @@ defineProps<Props>()
     <p class="note-preview__title">
       {{ note.title }}
     </p>
+    <!-- eslint-disable-next-line vue/no-v-html -->
     <p class="note-preview__text" v-html="fromMarkdown(note.text)" />
   </form>
 </template>

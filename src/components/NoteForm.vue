@@ -5,18 +5,38 @@ interface Props {
   note: Note
 }
 
-defineProps<Props>()
+interface Emits {
+  (event: 'submit', note: Note): void
+}
+
+const props = defineProps<Props>()
+
+const emit = defineEmits<Emits>()
+
+const model = useState('model', () => ({} as Note))
+
+watch(
+  () => props.note,
+  (note) => { model.value = { ...note } },
+  { deep: true, immediate: true }
+)
+
+const handleSubmit = () => {
+  emit('submit', model.value)
+}
+
+onUnmounted(handleSubmit)
 </script>
 
 <template>
   <form class="note-form">
     <input
-      :value="note.title"
+      v-model="model.title"
       class="note-form__input"
       type="text"
     >
     <textarea
-      :value="note.text"
+      v-model="model.text"
       class="note-form__textarea"
     />
   </form>
