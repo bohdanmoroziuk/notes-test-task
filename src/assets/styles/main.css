@@ -1,0 +1,33 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+html,
+body,
+#__nuxt,
+.app {
+  min-height: 100vh;
+}
+
+/*
+  Breakpoints
+    - xs: < 576px
+    - sm: >= 576px & < 768px
+    - md: >= 768px & < 992px
+    - lg: >= 992px & < 1200
+*/
+
+.d-none {
+  display: none !important;
+}
+
+@media screen and (min-width: 768px) {
+  .d-md-none {
+    display: none !important;
+  }
+}
