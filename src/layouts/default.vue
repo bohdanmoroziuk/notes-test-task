@@ -1,19 +1,10 @@
 <script setup lang="ts">
 import { notifyError } from '~/utils'
 import { useNotes } from '~/stores/useNotes'
-import { useEditMode } from '~/stores/useEditMode'
 
-const [leftDrawer, toggleLeftDrawer] = useToggle('leftDrawer')
+const [leftDrawer] = useToggle('leftDrawer')
 
-const { searchTerm, filteredNotes, getNotes } = await useNotes()
-
-const { editMode, toggleEditMode } = useEditMode()
-
-const editModeIcon = computed(() => (
-  editMode.value
-    ? 'material-symbols:markdown'
-    : 'material-symbols:edit-square'
-))
+const { filteredNotes, getNotes } = await useNotes()
 
 const handleNotesGet = async () => {
   try {
@@ -32,24 +23,7 @@ await handleNotesGet()
       <Toolbar />
       <NoteList :notes="filteredNotes" />
     </aside>
-    <header class="header">
-      <AppButtonGroup>
-        <AppButton
-          class="d-md-none"
-          @click="toggleLeftDrawer"
-        >
-          <AppIcon name="ic:baseline-menu" />
-        </AppButton>
-        <AppButton @click="toggleEditMode">
-          <AppIcon :name="editModeIcon" />
-        </AppButton>
-      </AppButtonGroup>
-      <AppInput
-        v-model="searchTerm"
-        type="search"
-        placeholder="search"
-      />
-    </header>
+    <Header />
     <main class="main">
       <slot />
     </main>
@@ -69,12 +43,6 @@ await handleNotesGet()
   height: 100vh;
   border-right: 1px solid lightgrey;
   background-color: white;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .main {
