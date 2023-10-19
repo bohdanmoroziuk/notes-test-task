@@ -24,9 +24,9 @@ await handleNotesGet()
       <NoteList :notes="filteredNotes" />
     </aside>
     <Header />
-    <main class="main">
+    <Main>
       <slot />
-    </main>
+    </Main>
   </div>
 </template>
 
@@ -43,10 +43,6 @@ await handleNotesGet()
   height: 100vh;
   border-right: 1px solid lightgrey;
   background-color: white;
-}
-
-.main {
-  height: 100%;
 }
 
 @media screen and (max-width: 767px) {
@@ -76,10 +72,6 @@ await handleNotesGet()
 
   .left-drawer {
     grid-row: 1 / 3;
-  }
-
-  .main {
-    grid-column: 2 / 3;
   }
 }
 
