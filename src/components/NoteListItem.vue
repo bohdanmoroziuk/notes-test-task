@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toTime } from '~/utils'
+import { toTime, goToNotePage } from '~/utils'
 import { Note } from '~/entities/Note'
 
 interface Props {
@@ -9,26 +9,18 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const title = computed(() => {
-  return props.note.title
-})
+const title = computed(() => props.note.title)
 
-const text = computed(() => {
-  return props.note.text
-    ? props.note.text.slice(0, 10)
-    : 'No additional text'
-})
+const text = computed(() => props.note.text ? props.note.text.slice(0, 10) : 'No additional text')
 
-const time = computed(() => {
-  return toTime(props.note.createdAt)
-})
+const time = computed(() => toTime(props.note.createdAt))
 </script>
 
 <template>
   <li
     class="note-list-item"
     :class="{ 'note-list-item--active': active }"
-    @click="navigateTo({ name: 'notes-noteId', params: { noteId: note.id } })"
+    @click="goToNotePage(note.id)"
   >
     <h4 class="note-list-item__title">
       {{ title }}

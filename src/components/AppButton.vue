@@ -3,7 +3,9 @@ interface Props {
   label?: string;
 }
 
-const { label = '' } = defineProps<Props>()
+withDefaults(defineProps<Props>(), {
+  label: ''
+})
 </script>
 
 <template>

@@ -10,11 +10,7 @@ const activeRouteId = useActiveNoteId()
 
 const note = computed(() => getNote(activeRouteId.value!))
 
-const timestamp = computed(() => (
-  note.value
-    ? toDateTime(note.value.createdAt)
-    : ''
-))
+const timestamp = computed(() => note.value ? toDateTime(note.value.createdAt) : '')
 
 const { editMode, disableEditMode } = useEditMode()
 

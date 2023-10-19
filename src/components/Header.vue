@@ -37,7 +37,6 @@ const editModeIcon = computed(() => (
 </template>
 
 <style scoped>
-
 .header {
   display: flex;
   align-items: center;

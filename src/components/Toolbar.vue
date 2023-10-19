@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { notifyError, confirm } from '~/utils'
+import { notifyError, confirm, goToHomePage, goToNotePage } from '~/utils'
 import { useNotes } from '~/stores/useNotes'
 
 const { addNote, removeNote } = await useNotes()
@@ -8,15 +8,11 @@ const [, toggleLeftDrawer] = useToggle('leftDrawer')
 
 const activeNoteId = useActiveNoteId()
 
-const goHome = () => {
-  navigateTo({ name: 'index' })
-}
-
 const handleNoteAdd = async () => {
   try {
     const note = await addNote('New note', '')
 
-    navigateTo({ name: 'notes-noteId', params: { noteId: note.id } })
+    goToNotePage(note.id)
   } catch (error) {
     notifyError(error)
   }
@@ -34,7 +30,7 @@ const handleNoteDelete = async () => {
     try {
       await removeNote(activeNoteId.value)
 
-      goHome()
+      goToHomePage()
     } catch (error) {
       notifyError(error)
     }
@@ -45,7 +41,7 @@ const handleNoteDelete = async () => {
 <template>
   <div class="toolbar">
     <AppButtonGroup>
-      <AppButton @click="goHome">
+      <AppButton @click="goToHomePage">
         <AppIcon name="ic:sharp-home" />
       </AppButton>
       <AppButton @click="handleNoteAdd">
