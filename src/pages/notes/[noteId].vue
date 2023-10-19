@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { toDateTime } from '~/utils'
+import { toDateTime, notifyError } from '~/utils'
+import { Note } from '~/entities/Note'
 import { useNotes } from '~/stores/useNotes'
 import { useEditMode } from '~/stores/useEditMode'
 
-const { getNote, updateNote } = useNotes()
+const { getNote, updateNote } = await useNotes()
 
 const activeRouteId = useActiveNoteId()
 
@@ -18,6 +19,14 @@ const timestamp = computed(() => (
 const { editMode, disableEditMode } = useEditMode()
 
 watch(activeRouteId, disableEditMode, { immediate: true })
+
+const handleNoteUpdate = async (note: Note) => {
+  try {
+    await updateNote(note)
+  } catch (error) {
+    notifyError(error)
+  }
+}
 </script>
 
 <template>
@@ -29,7 +38,7 @@ watch(activeRouteId, disableEditMode, { immediate: true })
       <template v-if="editMode">
         <NoteForm
           :note="note"
-          @submit="updateNote"
+          @submit="handleNoteUpdate"
         />
       </template>
       <template v-else>

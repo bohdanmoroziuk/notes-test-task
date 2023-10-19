@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useNotes } from '~/stores/useNotes'
 
-const { hasNotes } = useNotes()
+const { hasNotes } = await useNotes()
 
 const message = computed(() => (
   hasNotes.value

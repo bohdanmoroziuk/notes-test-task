@@ -1,12 +1,12 @@
+import { IDB } from '~/services/IDB'
 import { Note, NoteId, createNote } from '~/entities/Note'
 
-export const useNotes = () => {
+export const useNotes = async () => {
+  const idb = await IDB.initialize<Note>('notes')
+
   const searchTerm = useState('searchTerm', () => '')
 
-  const notes = useState<Note[]>('notes', () => [
-    createNote('My first note', 'No text'),
-    createNote('My second note', '### Some text...')
-  ])
+  const notes = useState<Note[]>('notes', () => [])
 
   const filteredNotes = computed(() => {
     if (notes.value.length === 0) { return notes.value }
@@ -21,19 +21,33 @@ export const useNotes = () => {
 
   const hasNotes = computed(() => notes.value.length > 0)
 
+  const getNotes = async () => {
+    try {
+      notes.value = await idb.getItems()
+    } catch (error) {
+      notes.value = []
+
+      throw error
+    }
+  }
+
   const getNote = (noteId: NoteId) => {
     return notes.value.find(note => note.id === noteId)
   }
 
-  const addNote = (title: string, text: string) => {
+  const addNote = async (title: string, text: string) => {
     const note = createNote(title, text)
+
+    await idb.addItem(note)
 
     notes.value = [note, ...notes.value]
 
     return note
   }
 
-  const updateNote = (note: Note) => {
+  const updateNote = async (note: Note) => {
+    await idb.updateItem(note)
+
     notes.value = notes.value.map(oldNote => (
       oldNote.id === note.id
         ? note
@@ -41,7 +55,9 @@ export const useNotes = () => {
     ))
   }
 
-  const removeNote = (noteId: NoteId) => {
+  const removeNote = async (noteId: NoteId) => {
+    await idb.deleteItem(noteId)
+
     notes.value = notes.value.filter(note => note.id !== noteId)
   }
 
@@ -51,6 +67,7 @@ export const useNotes = () => {
     filteredNotes,
     hasNotes,
     getNote,
+    getNotes,
     addNote,
     updateNote,
     removeNote

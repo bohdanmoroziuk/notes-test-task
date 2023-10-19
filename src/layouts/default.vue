@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { notifyError, confirm } from '~/utils'
 import { useNotes } from '~/stores/useNotes'
 import { useEditMode } from '~/stores/useEditMode'
 
@@ -6,7 +7,7 @@ const [leftDrawer, toggleLeftDrawer] = useToggle('leftDrawer')
 
 const activeNoteId = useActiveNoteId()
 
-const { searchTerm, filteredNotes, addNote, removeNote } = useNotes()
+const { searchTerm, filteredNotes, getNotes, addNote, removeNote } = await useNotes()
 
 const { editMode, toggleEditMode } = useEditMode()
 
@@ -20,13 +21,25 @@ const goHome = () => {
   navigateTo({ name: 'index' })
 }
 
-const handleNoteAdd = () => {
-  const note = addNote('New note', '')
-
-  navigateTo({ name: 'notes-noteId', params: { noteId: note.id } })
+const handleNotesGet = async () => {
+  try {
+    await getNotes()
+  } catch (error) {
+    notifyError(error)
+  }
 }
 
-const handleNoteDelete = () => {
+const handleNoteAdd = async () => {
+  try {
+    const note = await addNote('New note', '')
+
+    navigateTo({ name: 'notes-noteId', params: { noteId: note.id } })
+  } catch (error) {
+    notifyError(error)
+  }
+}
+
+const handleNoteDelete = async () => {
   if (!activeNoteId.value) {
     alert('No note selected.')
     return
@@ -35,10 +48,17 @@ const handleNoteDelete = () => {
   const isOk = confirm('Are you sure you want to delete the note?')
 
   if (isOk) {
-    removeNote(activeNoteId.value)
-    goHome()
+    try {
+      await removeNote(activeNoteId.value)
+
+      goHome()
+    } catch (error) {
+      notifyError(error)
+    }
   }
 }
+
+await handleNotesGet()
 </script>
 
 <template>

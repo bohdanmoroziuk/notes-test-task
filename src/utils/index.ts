@@ -24,3 +24,19 @@ export const toTime = createDateTimeFormatter('uk-UA', {
   minute: 'numeric',
   hour12: false
 })
+
+export const notify = (message: string) => {
+  window.alert(message)
+}
+
+export const notifyError = (error: unknown) => {
+  const errorMessage = error instanceof Error ? error.message : 'Something went wrong'
+
+  const message = `Error: ${errorMessage}`
+
+  notify(message)
+}
+
+export const confirm = (message: string) => {
+  return window.confirm(message)
+}
